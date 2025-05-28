@@ -889,9 +889,9 @@ class Simulation:
 
         with open(os.path.join(self._path, "in.main_file"), "a") as f:
             f.write(f"bond_coeff {self._bond_type_iter} {stiffness} {rest_length}\n")
-            f.write(f"include bonds_{self._bond_type_iter}.txt\n")
+            f.write(f"include structure/bonds_{self._bond_type_iter}.txt\n")
         with open(
-            os.path.join(self._path, f"bonds_{self._bond_type_iter}.txt"), "w"
+            os.path.join(self._path, f"structure/bonds_{self._bond_type_iter}.txt"), "w"
         ) as f:
             for i in range(tuplets.shape[0]):
                 f.write(
@@ -922,9 +922,9 @@ class Simulation:
 
         with open(os.path.join(self._path, "in.main_file"), "a") as f:
             f.write(f"angle_coeff {self._angle_type_iter} {U_min} {rest_angle}\n")
-            f.write(f"include angles_{self._angle_type_iter}.txt\n")
+            f.write(f"include structure/angles_{self._angle_type_iter}.txt\n")
         with open(
-            os.path.join(self._path, f"angles_{self._angle_type_iter}.txt"), "w"
+            os.path.join(self._path, f"structure/angles_{self._angle_type_iter}.txt"), "w"
         ) as f:
             for i in range(triplets.shape[0]):
                 f.write(
@@ -1730,13 +1730,13 @@ class Simulation:
 def _dist(coords, i, j):
     return ((coords[i, 0] - coords[j, 0])**2 + (coords[i, 1] - coords[j, 1])**2 + (coords[i, 2] - coords[j, 2])**2)**0.5
 
-def run_lammps(lammps_sim: Simulation | str | None = None, run_type: str = 'serial') -> None:
+def run_lammps(lammps_sim: Simulation | str | None = None, run_type: str = 'serial', file_name: str = 'in.main_file') -> None:
     if lammps_sim is None: sim_path = os.getcwd()
     elif isinstance(lammps_sim, str): sim_path = lammps_sim
     else: sim_path = lammps_sim._path
     new_sim = lammps()
     with chdir(sim_path):
-        new_sim.file(os.path.join(sim_path, "in.main_file"))
+        new_sim.file(os.path.join(sim_path, file_name))
         if run_type == 'parallel':
             me = MPI.COMM_WORLD.Get_rank()
             nprocs = MPI.COMM_WORLD.Get_size()

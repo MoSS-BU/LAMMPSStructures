@@ -23,15 +23,15 @@ beam_length = 0.1
 beam_thickness = 0.002
 Np_beam = 150
 Np_side = 20
-squish_factor = 0.1
+squish_factor = 0.4
 E_beams = 0.96 * 10 ** 6
 E_walls = 10 ** 4
 
 density = 0.5
 viscosity = 2 * 10 ** -7 #* 10**3
 timestep = 1 * 10 ** -7
-dump_timestep = 10 ** -2
-simtime = 1
+dump_timestep = 10 ** -1
+simtime = 10
 #simtime = 0.001
 
 # Start a simulation with the name simname

@@ -57,7 +57,7 @@ dihedral_coeff 2 3 0.0 1 0.0 1 1 90 0 1 90 0 0.0009600000000000001 0 0 0 1 180.0
 include structure/dihedral_2.txt
 
 group group_move_4 id 2
-fix fix_move_4 group_move_4 move linear 0 0 -0.010000000000000002
+fix fix_move_4 group_move_4 move linear 0 0 -0.004000000000000001
 
 fix fix_viscosity_1 all viscous 2e-07
 
@@ -67,5 +67,5 @@ dump pump all custom 1 raw/out*.dump id type radius x y z fx fy fz c_bendingE c_
 dump_modify pump pad 11
 
 timestep 1e-07
-dump_modify pump every 100000
-run 10000000
+dump_modify pump every 1000000
+run 100000000
